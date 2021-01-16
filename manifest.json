@@ -25,5 +25,10 @@
         "src/content-scripts/simplymath.css"
       ]
     }
+  ],
+  "options_page": "src/options-page/simplymath.html",
+  "permissions": [
+    "contextMenus",
+    "https://*/*"
   ]
 }
