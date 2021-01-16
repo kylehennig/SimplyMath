@@ -1,0 +1,29 @@
+{
+  "name": "SimplyMath",
+  "description": "Assists with typing equations as you browse the web.",
+  "version": "0.0.0.1",
+  "manifest_version": 2,
+  "icons": {
+    "128": "icons/icon_128.png"
+  },
+  "browser_action": {
+    "default_icon": {
+      "128": "icons/icon_128.png"
+    },
+    "default_title": "SimplyMath",
+    "default_popup": "src/browser-action/simplymath.html"
+  },
+  "content_scripts": [
+    {
+      "matches": [
+        "https://*/*"
+      ],
+      "js": [
+        "src/content-scripts/simplymath.js"
+      ],
+      "css": [
+        "src/content-scripts/simplymath.css"
+      ]
+    }
+  ]
+}
