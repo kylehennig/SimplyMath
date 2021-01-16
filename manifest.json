@@ -3,6 +3,10 @@
   "description": "Assists with typing equations as you browse the web.",
   "version": "0.0.0.1",
   "manifest_version": 2,
+    "background": {
+    "scripts": ["src/background-scripts/background.js"],
+    "persistent": false
+  },
   "icons": {
     "128": "icons/icon_128.png"
   },
@@ -12,6 +16,12 @@
     },
     "default_title": "SimplyMath",
     "default_popup": "src/browser-action/simplymath.html"
+  },
+  "commands": {
+    "create-equation": {
+      "suggested_key": { "default": "Ctrl+Shift+Y" },
+      "description": "Creates an equation"
+    }
   },
   "content_scripts": [
     {
