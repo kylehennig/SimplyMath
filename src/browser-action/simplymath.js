@@ -35,6 +35,10 @@ window.addEventListener('load', () => {
   const getImageAsDataUrl = async () => {
     try {
       const equationElement = mathQuillInput.querySelector('.mq-root-block');
+      const cursorElement = equationElement.querySelector('.mq-cursor');
+      if (cursorElement !== null) {
+        cursorElement.style.visibility = 'hidden';
+      }
       const dataUrl = await domtoimage.toPng(equationElement, {
         width: equationElement.offsetWidth * config.fontSize,
         height: equationElement.offsetHeight * config.fontSize,
@@ -43,6 +47,9 @@ window.addEventListener('load', () => {
           'transform-origin': 'top left'
         }
       });
+      if (cursorElement !== null) {
+        cursorElement.style.visibility = 'visible';
+      }
       return dataUrl;
     } catch (error) {
       console.error('An error occured while converting the equation to a PNG: ' + error);
@@ -107,7 +114,7 @@ window.addEventListener('load', () => {
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
-  })
+  });
 
   let history = [];
   console.log(typeof history);
@@ -150,4 +157,22 @@ window.addEventListener('load', () => {
     }
   });
 
+  // Checks if an equation is currently selected.
+  chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
+    chrome.tabs.sendMessage(tabs[0].id, {
+      message: 'openPopup'
+    }, response => {
+      switch (response.message) {
+        case 'latex':
+          if (response.latex !== null) {
+            mathField.latex(response.latex);
+            insertButton.textContent = 'Replace';
+          };
+          break;
+        default:
+          console.error('Unexpected communication error.');
+          break;
+      }
+    })
+  });
 });

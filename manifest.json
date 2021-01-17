@@ -36,9 +36,6 @@
       ],
       "js": [
         "src/content-scripts/simplymath.js"
-      ],
-      "css": [
-        "src/content-scripts/simplymath.css"
       ]
     }
   ],
