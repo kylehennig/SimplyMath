@@ -7,7 +7,7 @@ add it to create config from state
 add it to load config */
 
 const defaultConfig = {
-  'fontSize': 10,
+  'fontSize': 4,
   'maxDepth': 10,
   'spaceBehavesLikeTab': true,
   'restrictMismatchedBrackets': true,
@@ -110,8 +110,8 @@ function loadConfig(config) {
 function validateFontSizeListener(e) {
   if (e.target.value > 100) {
     e.target.value = 100;
-  } else if (e.target.value < 8) {
-    e.target.value = 10;
+  } else if (e.target.value < 2) {
+    e.target.value = 4;
   }
 }
 

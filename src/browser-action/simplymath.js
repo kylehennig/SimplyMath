@@ -1,11 +1,25 @@
+const defaultConfig = {
+  'fontSize': 4,
+  'maxDepth': 10,
+  'spaceBehavesLikeTab': true,
+  'restrictMismatchedBrackets': true,
+  'sumStartsWithNEquals': true,
+  'supSubsRequireOperand': true,
+  'autoSubscriptNumerals': true,
+}
+
 window.addEventListener('load', () => {
-  /**
-   * Configurable options.
-   * TODO: Obtain from the options page.
-   */
-  const config = {
-    scale: 4
-  };
+  // set config
+  let config = {};
+  chrome.storage.sync.get(['config'], (result) => {
+    if (Object.keys(result).length === 0) { // first time user opened options
+      console.log("No Saved config found! Loading default")
+      config = defaultConfig;
+    } else { // load saved options
+      console.log("Loading fetched config!");
+      config = result.config;
+    }
+  });
 
   const mathQuill = MathQuill.getInterface(2);
   const mathQuillInput = document.getElementById('mathquill-input');
@@ -23,10 +37,10 @@ window.addEventListener('load', () => {
     try {
       const equationElement = mathQuillInput.querySelector('.mq-root-block');
       const dataUrl = await domtoimage.toPng(equationElement, {
-        width: equationElement.offsetWidth * config.scale,
-        height: equationElement.offsetHeight * config.scale,
+        width: equationElement.offsetWidth * config.fontSize,
+        height: equationElement.offsetHeight * config.fontSize,
         style: {
-          'transform': `scale(${config.scale})`,
+          'transform': `scale(${config.fontSize})`,
           'transform-origin': 'top left'
         }
       });
