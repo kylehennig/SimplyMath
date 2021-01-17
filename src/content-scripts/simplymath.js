@@ -42,6 +42,41 @@ window.addEventListener('load', () => {
     }
   }
 
+  const deleteImageAtCursor = () => {
+    if (currentEditableElement === null) {
+      return;
+    }
+    if (currentIframe !== null) {
+      // Focus element where cursor is
+      const win = currentIframe.contentWindow;
+      const range = win.document.createRange();
+      range.setStart(win.document.body, 0);
+      range.setEnd(win.document.body, 0);
+      win.document.body.focus();
+      win.getSelection().addRange(range);
+
+      // Simulate backspace keypress
+      const event = new KeyboardEvent('keydown', {
+       'key': 'Backspace',
+       'code': 'Backspace',
+       'keyCode': 8
+      });
+      event.isTrusted = true;
+      win.document.dispatchEvent(event);
+      console.log('dispatched backspace keydown event');
+    } else {
+      currentEditableElement.focus();
+      const event = new KeyboardEvent('keydown', {
+       'key': 'Backspace',
+       'code': 'Backspace',
+       'keyCode': 8
+      });
+      event.isTrusted = true;
+      win.document.dispatchEvent(event);
+      console.log('dispatched backspace keydown event');
+    }
+  }
+
   const clickHandler = (event) => {
     // check if main mouse button was clicked
     if (event.button !== 0) {
