@@ -95,7 +95,7 @@ window.addEventListener('load', () => {
     });
   });
 
-  const saveButton = document.getElementById('save-button');
+  const saveButton = document.getElementById('download-button');
   saveButton.addEventListener('click', async () => {
     const dataUrl = await getImageAsDataUrl();
     if (dataUrl === null) {
