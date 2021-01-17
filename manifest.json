@@ -42,7 +42,7 @@
       ]
     }
   ],
-  "options_page": "src/options-page/simplymath.html",
+  "options_page": "src/options-page/options.html",
   "permissions": [
     "storage",
     "activeTab",

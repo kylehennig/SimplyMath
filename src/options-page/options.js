@@ -45,6 +45,7 @@ window.addEventListener('load', () => {
 
 function saveButtonListener() {
   saveConfig();
+  // toggle saved indicator
   settingsSavedText.style.display = "block";
   setTimeout(() => {
     settingsSavedText.style.display = "none";
