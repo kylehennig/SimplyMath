@@ -1,7 +1,7 @@
 {
   "name": "SimplyMath",
-  "description": "Assists with typing equations as you browse the web.",
-  "version": "0.0.0.1",
+  "description": "Assists with typing equations as you browse the web",
+  "version": "0.0.1",
   "manifest_version": 2,
   "icons": {
     "128": "icons/icon_128.png"
