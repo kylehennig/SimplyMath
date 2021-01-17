@@ -1,0 +1,18 @@
+.simplymath-modal {
+  background-color: rgba(0, 0, 0, 0.4);
+  height: 100%;
+  left: 0;
+  overflow: auto;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 99;
+}
+
+.simplymath-modal-content {
+  background-color: white;
+  border: 1px solid #383838;
+  margin: 15% auto;
+  padding: 20px;
+  width: 80%;
+}

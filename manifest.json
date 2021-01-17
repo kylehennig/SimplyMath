@@ -35,10 +35,11 @@
         "https://*/*"
       ],
       "js": [
+        "src/content-scripts/simplymath-editor.js",
         "src/content-scripts/simplymath.js"
       ],
       "css": [
-        "src/content-scripts/simplymath.css"
+        "src/content-scripts/simplymath-editor.css"
       ]
     }
   ],

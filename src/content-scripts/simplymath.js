@@ -73,6 +73,8 @@ window.addEventListener('load', () => {
 
       const latex = altText.substr(altTextPrefix.length);
       console.log(latex);
+      const editor = new SimplyMathEditor();
+      editor.create(latex);
     });
   }
 
