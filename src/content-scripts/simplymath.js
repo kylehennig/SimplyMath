@@ -1,10 +1,11 @@
 window.addEventListener('load', () => {
-  const writeImageToClipboard = async url => {
+  const writeImageToClipboard = async (url, latex) => {
     try {
       // How to copy image to clipboard
       // https://gist.github.com/dvreed77/c37759991b0723eebef3647015495253
       const image = new Image();
       image.src = url;
+      image.alt = latex;
       document.body.appendChild(image);
       const r = document.createRange();
       r.setStartBefore(image);
@@ -56,7 +57,7 @@ window.addEventListener('load', () => {
 
   chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
     if (request.message === 'insertImage') {
-      await writeImageToClipboard(request.imageUrl);
+      await writeImageToClipboard(request.imageUrl, request.latex);
       pasteImageFromClipboard();
     }
   });
