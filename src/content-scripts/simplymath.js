@@ -23,6 +23,7 @@ window.addEventListener('load', () => {
 
   let currentEditableElement = null;
   let currentIframe = null;
+  let currentLatex = null;
 
   const pasteImageFromClipboard = () => {
     if (currentEditableElement === null) {
@@ -86,6 +87,7 @@ window.addEventListener('load', () => {
     const clickedElement = event.target;
 
     const images = clickedElement.querySelectorAll('image');
+    currentLatex = null;
     images.forEach((image) => {
       // check if click lands within image
       const domRect = image.getBoundingClientRect();
@@ -108,8 +110,7 @@ window.addEventListener('load', () => {
 
       const latex = altText.substr(altTextPrefix.length);
       console.log(latex);
-      const editor = new SimplyMathEditor();
-      editor.create(latex);
+      currentLatex = latex;
     });
   }
 
@@ -130,6 +131,9 @@ window.addEventListener('load', () => {
 
   chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
     switch (request.message) {
+      case 'openPopup':
+        sendResponse({ message: 'latex', latex: currentLatex })
+        break;
       case 'copyImage':
         await writeImageToClipboard(request.imageUrl, request.latex);
         sendResponse({ message: 'success' });

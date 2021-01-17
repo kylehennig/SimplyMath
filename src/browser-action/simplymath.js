@@ -107,5 +107,24 @@ window.addEventListener('load', () => {
     document.body.appendChild(a);
     a.click();
     document.body.removeChild(a);
-  })
+  });
+
+  // Checks if an equation is currently selected.
+  chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
+    chrome.tabs.sendMessage(tabs[0].id, {
+      message: 'openPopup'
+    }, response => {
+      switch (response.message) {
+        case 'latex':
+          if (response.latex !== null) {
+            mathField.latex(response.latex);
+            insertButton.textContent = 'Replace';
+          };
+          break;
+        default:
+          console.error('Unexpected communication error.');
+          break;
+      }
+    })
+  });
 });
