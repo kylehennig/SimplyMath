@@ -57,6 +57,26 @@ window.addEventListener('load', () => {
     }
   }
 
+  const writeImageToClipboard = (imageUrl, latex) => {
+    chrome.runtime.sendMessage({
+      message: 'copyImage',
+      imageUrl: imageUrl,
+      latex: latex
+    }, response => {
+      switch (response.message) {
+        case 'success':
+          actionStatus.textContent = 'Copied successfully!';
+          break;
+        case 'failure':
+          actionStatus.textContent = response.description;
+          break;
+        default:
+          actionStatus.textContent = 'Unexpected communication error.';
+          break;
+      }
+    });
+  }
+
   const actionStatus = document.getElementById('action-status');
   const copyButton = document.getElementById('copy-button');
   copyButton.addEventListener('click', async () => {
@@ -64,25 +84,7 @@ window.addEventListener('load', () => {
     if (dataUrl === null) {
       return;
     }
-    chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
-      chrome.tabs.sendMessage(tabs[0].id, {
-        message: 'copyImage',
-        imageUrl: dataUrl,
-        latex: mathField.latex()
-      }, response => {
-        switch (response.message) {
-          case 'success':
-            actionStatus.textContent = 'Copied successfully!';
-            break;
-          case 'failure':
-            actionStatus.textContent = response.description;
-            break;
-          default:
-            actionStatus.textContent = 'Unexpected communication error.';
-            break;
-        }
-      })
-    });
+    writeImageToClipboard(dataUrl, mathField.latex());
   });
 
   const insertButton = document.getElementById('insert-button');
@@ -91,11 +93,10 @@ window.addEventListener('load', () => {
     if (dataUrl === null) {
       return;
     }
+    writeImageToClipboard(dataUrl, mathField.latex());
     chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
       chrome.tabs.sendMessage(tabs[0].id, {
-        message: 'insertImage',
-        imageUrl: dataUrl,
-        latex: mathField.latex()
+        message: 'insertImage'
       }, response => {
         console.log(response);
       })
@@ -153,7 +154,7 @@ window.addEventListener('load', () => {
       historyList.appendChild(child);
       history.push(mathField.latex());
       // save history
-      chrome.storage.sync.set({'history' : history}, () => {});
+      chrome.storage.sync.set({ 'history': history }, () => { });
     }
   });
 

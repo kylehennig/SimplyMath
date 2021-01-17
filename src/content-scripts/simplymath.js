@@ -1,25 +1,5 @@
 window.addEventListener('load', () => {
   const altTextPrefix = '$latex$';
-  const writeImageToClipboard = async (url, latex) => {
-    try {
-      // How to copy image to clipboard
-      // https://gist.github.com/dvreed77/c37759991b0723eebef3647015495253
-      const image = new Image();
-      image.src = url;
-      image.alt = altTextPrefix + latex;
-      document.body.appendChild(image);
-      const r = document.createRange();
-      r.setStartBefore(image);
-      r.setEndAfter(image);
-      r.selectNode(image);
-      const selection = window.getSelection();
-      selection.addRange(r);
-      document.execCommand('copy');
-      document.body.removeChild(image);
-    } catch (err) {
-      console.error(err.name, err.message);
-    }
-  }
 
   let currentEditableElement = null;
   let currentIframe = null;
@@ -135,11 +115,9 @@ window.addEventListener('load', () => {
         sendResponse({ message: 'latex', latex: currentLatex })
         break;
       case 'copyImage':
-        await writeImageToClipboard(request.imageUrl, request.latex);
         sendResponse({ message: 'success' });
         break;
       case 'insertImage':
-        await writeImageToClipboard(request.imageUrl, request.latex);
         if (currentLatex !== null) {
           deleteImageAtCursor();
         }
