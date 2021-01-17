@@ -44,9 +44,12 @@
   ],
   "options_page": "src/options-page/simplymath.html",
   "permissions": [
+    "activeTab",
     "contextMenus",
     "http://*/*",
     "https://*/*",
-    "tabs"
+    "tabs",
+    "clipboardRead",
+    "clipboardWrite"
   ]
 }
