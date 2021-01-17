@@ -1,16 +1,20 @@
 window.addEventListener('load', () => {
   const mathQuill = MathQuill.getInterface(2);
-  const mathQuillSpan = document.getElementById('mathquill-span');
-  const latexSpan = document.getElementById('latex-span');
-  const pngImage = document.getElementById('png-image');
-  const mathField = mathQuill.MathField(mathQuillSpan, {
+  const mathQuillInput = document.getElementById('mathquill-input');
+  const latexOutput = document.getElementById('latex-output');
+  const imageOutput = document.getElementById('image-output');
+  const mathField = mathQuill.MathField(mathQuillInput, {
     handlers: {
       edit: async () => {
         const enteredMath = mathField.latex();
-        latexSpan.textContent = enteredMath;
+        latexOutput.textContent = enteredMath;
         try {
-          const dataUrl = await domtoimage.toPng(mathQuillSpan);
-          pngImage.src = dataUrl;
+          const equationElement = mathQuillInput.querySelector('.mq-root-block');
+          const cursorElement = equationElement.querySelector('.mq-cursor');
+          cursorElement.style.visibility = 'hidden';
+          const dataUrl = await domtoimage.toPng(equationElement);
+          cursorElement.style.visibility = 'visible';
+          imageOutput.src = dataUrl;
         } catch (error) {
           console.error("An error occured while converting the equation to a PNG: " + e);
         }
