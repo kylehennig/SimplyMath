@@ -3,12 +3,14 @@
   "description": "Assists with typing equations as you browse the web.",
   "version": "0.0.0.1",
   "manifest_version": 2,
-    "background": {
-    "scripts": ["src/background-scripts/background.js"],
-    "persistent": false
-  },
   "icons": {
     "128": "icons/icon_128.png"
+  },
+  "background": {
+    "scripts": [
+      "src/background-scripts/background.js"
+    ],
+    "persistent": false
   },
   "browser_action": {
     "default_icon": {
@@ -19,8 +21,11 @@
   },
   "commands": {
     "create-equation": {
-      "suggested_key": { "default": "Ctrl+Shift+Y" },
-      "description": "Creates an equation"
+      "suggested_key": {
+        "default": "Ctrl+Shift+Y",
+        "mac": "Command+Shift+Y"
+      },
+      "description": "Create an equation"
     }
   },
   "content_scripts": [
