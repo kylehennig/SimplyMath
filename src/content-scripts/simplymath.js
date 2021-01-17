@@ -58,9 +58,9 @@ window.addEventListener('load', () => {
 
       // Simulate backspace keypress
       const event = new KeyboardEvent('keydown', {
-       'key': 'Backspace',
-       'code': 'Backspace',
-       'keyCode': 8
+        'key': 'Backspace',
+        'code': 'Backspace',
+        'keyCode': 8
       });
       event.isTrusted = true;
       win.document.dispatchEvent(event);
@@ -68,9 +68,9 @@ window.addEventListener('load', () => {
     } else {
       currentEditableElement.focus();
       const event = new KeyboardEvent('keydown', {
-       'key': 'Backspace',
-       'code': 'Backspace',
-       'keyCode': 8
+        'key': 'Backspace',
+        'code': 'Backspace',
+        'keyCode': 8
       });
       event.isTrusted = true;
       win.document.dispatchEvent(event);
@@ -140,6 +140,9 @@ window.addEventListener('load', () => {
         break;
       case 'insertImage':
         await writeImageToClipboard(request.imageUrl, request.latex);
+        if (currentLatex !== null) {
+          deleteImageAtCursor();
+        }
         pasteImageFromClipboard();
         sendResponse({ message: 'success' });
         break;
