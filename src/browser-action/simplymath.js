@@ -1,4 +1,12 @@
 window.addEventListener('load', () => {
+  /**
+   * Configurable options.
+   * TODO: Obtain from the options page.
+   */
+  const config = {
+    scale: 4
+  };
+
   const mathQuill = MathQuill.getInterface(2);
   const mathQuillInput = document.getElementById('mathquill-input');
   const latexOutput = document.getElementById('latex-output');
@@ -14,7 +22,14 @@ window.addEventListener('load', () => {
   const getImageAsDataUrl = async () => {
     try {
       const equationElement = mathQuillInput.querySelector('.mq-root-block');
-      const dataUrl = await domtoimage.toPng(equationElement);
+      const dataUrl = await domtoimage.toPng(equationElement, {
+        width: equationElement.offsetWidth * config.scale,
+        height: equationElement.offsetHeight * config.scale,
+        style: {
+          'transform': `scale(${config.scale})`,
+          'transform-origin': 'top left'
+        }
+      });
       return dataUrl;
     } catch (error) {
       console.error('An error occured while converting the equation to a PNG: ' + error);
