@@ -21,17 +21,49 @@
 
 <body>
   <main>
-    <section>
+    <div class="header">
+      <h1>Simply Math Options</h1>
+    </div>
 
-    </section>
-    <section>
+    <div class="options">
+      <div class="option">
+        <label for="fontSizeInput">Font Size: </label>
+        <input type="number" id="fontSizeInput" min="8" max="100">
+      </div>
+      <div class="option">
+        <label for="maxDepthInput">Max Depth: </label>
+        <input type="number" id="maxDepthInput" min="1" max="100">
+      </div>
+      <div class="option">
+        <label for="spaceBehavesLikeTab">Space behaves like Tab?</label>
+        <input type="checkbox" id="spaceBehavesLikeTab">
+      </div>
+      <div class="option">
+        <label for="restrictMismatchedBrackets">Restrict Mismatched Brackets?</label>
+        <input type="checkbox" id="restrictMismatchedBrackets">
+      </div>
+      <div class="option">
+        <label for="sumStartsWithNEquals">Sum Starts with N equals?</label>
+        <input type="checkbox" id="sumStartsWithNEquals">
+      </div>
+      <div class="option">
+        <label for="supSubsRequireOperand">Super/Subscript require operand?</label>
+        <input type="checkbox" id="supSubsRequireOperand">
+      </div>
+      <div class="option">
+        <label for="autoSubscriptNumerals">Auto Subscript Numerals?</label>
+        <input type="checkbox" id="autoSubscriptNumerals">
+      </div>
 
-    </section>
-    <section>
+      <!-- Buttons -->
+      <div class=option>
+        <button id="saveButton" type="button">Save</button>
+        <div id="settingsSavedText" style="display: none;">Settings Saved!</div>
+      </div>
+      <div class=option>
+        <button id="loadButton" type="button">Load Defaults</button>
+      </div>
+    </div>
 
-    </section>
-    <section>
-
-    </section>
   </main>
 </body>

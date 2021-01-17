@@ -38,6 +38,7 @@
   ],
   "options_page": "src/options-page/simplymath.html",
   "permissions": [
+    "storage",
     "contextMenus",
     "https://*/*"
   ]
