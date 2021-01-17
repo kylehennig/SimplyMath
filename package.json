@@ -1,0 +1,24 @@
+{
+  "name": "simplymath",
+  "version": "0.0.1",
+  "description": "Assists with typing equations as you browse the web",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kylehennig/SimplyMath.git"
+  },
+  "keywords": [],
+  "author": "Kyle Hennig",
+  "contributors": [
+    "Ryan Shukla",
+    "Konrad Staniszewski"
+  ],
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/kylehennig/SimplyMath/issues"
+  },
+  "homepage": "https://github.com/kylehennig/SimplyMath#readme"
+}
