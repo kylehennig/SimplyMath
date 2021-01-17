@@ -95,8 +95,8 @@ window.addEventListener('load', () => {
     });
   });
 
-  const saveButton = document.getElementById('download-button');
-  saveButton.addEventListener('click', async () => {
+  const downloadButton = document.getElementById('download-button');
+  downloadButton.addEventListener('click', async () => {
     const dataUrl = await getImageAsDataUrl();
     if (dataUrl === null) {
       return;
@@ -108,4 +108,46 @@ window.addEventListener('load', () => {
     a.click();
     document.body.removeChild(a);
   })
+
+  let history = [];
+  console.log(typeof history);
+  chrome.storage.sync.get(['history'], (result) => {
+    if (Object.keys(result).length === 0) { // first time user opened options
+      console.log("No history")
+    } else { // load saved options
+      history = result.history;
+      const historyList = document.getElementById('history');
+      history.forEach(latexStr => {
+        const child = document.createElement('li');
+        child.appendChild(document.createTextNode(latexStr));
+        child.addEventListener('click', () => {
+          mathField.latex(child.textContent);
+        });
+        historyList.appendChild(child);
+      });
+    }
+  });
+
+  const saveButton = document.getElementById('save-button');
+  saveButton.addEventListener('click', () => {
+    if (mathField.latex() !== "") {
+      const historyList = document.getElementById('history');
+      // if more than 10 elements, remove the last one
+      if (history.length >= 10) {
+        history.shift();
+        historyList.removeChild(historyList.firstChild);
+      }
+      // append child
+      const child = document.createElement('li')
+      child.appendChild(document.createTextNode(mathField.latex()));
+      child.addEventListener('click', () => {
+        mathField.latex(child.textContent);
+      });
+      historyList.appendChild(child);
+      history.push(mathField.latex());
+      // save history
+      chrome.storage.sync.set({'history' : history}, () => {});
+    }
+  });
+
 });
