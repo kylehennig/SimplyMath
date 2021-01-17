@@ -31,7 +31,7 @@
   "content_scripts": [
     {
       "matches": [
-        "https://*/*"
+        "*://*/*"
       ],
       "js": [
         "src/content-scripts/simplymath.js"
@@ -44,6 +44,6 @@
   "options_page": "src/options-page/simplymath.html",
   "permissions": [
     "contextMenus",
-    "https://*/*"
+    "*://*/*"
   ]
 }
