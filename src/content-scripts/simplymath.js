@@ -14,6 +14,7 @@ window.addEventListener('load', () => {
       const selection = window.getSelection();
       selection.addRange(r);
       document.execCommand('copy');
+      document.body.removeChild(image);
     } catch (err) {
       console.error(err.name, err.message);
     }
@@ -56,9 +57,19 @@ window.addEventListener('load', () => {
   });
 
   chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
-    if (request.message === 'insertImage') {
-      await writeImageToClipboard(request.imageUrl, request.latex);
-      pasteImageFromClipboard();
+    switch (request.message) {
+      case 'copyImage':
+        await writeImageToClipboard(request.imageUrl, request.latex);
+        sendResponse({ message: 'success' });
+        break;
+      case 'insertImage':
+        await writeImageToClipboard(request.imageUrl, request.latex);
+        pasteImageFromClipboard();
+        sendResponse({ message: 'success' });
+        break;
+      default:
+        sendResponse({ message: 'failure', description: `Unrecognized message type ${request.message}.` });
+        break;
     }
   });
 });

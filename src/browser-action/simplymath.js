@@ -50,6 +50,34 @@ window.addEventListener('load', () => {
     }
   }
 
+  const actionStatus = document.getElementById('action-status');
+  const copyButton = document.getElementById('copy-button');
+  copyButton.addEventListener('click', async () => {
+    const dataUrl = await getImageAsDataUrl();
+    if (dataUrl === null) {
+      return;
+    }
+    chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
+      chrome.tabs.sendMessage(tabs[0].id, {
+        message: 'copyImage',
+        imageUrl: dataUrl,
+        latex: mathField.latex()
+      }, response => {
+        switch (response.message) {
+          case 'success':
+            actionStatus.textContent = 'Copied successfully!';
+            break;
+          case 'failure':
+            actionStatus.textContent = response.description;
+            break;
+          default:
+            actionStatus.textContent = 'Unexpected communication error.';
+            break;
+        }
+      })
+    });
+  });
+
   const insertButton = document.getElementById('insert-button');
   insertButton.addEventListener('click', async () => {
     const dataUrl = await getImageAsDataUrl();
