@@ -27,8 +27,7 @@ window.addEventListener('load', () => {
   const mathField = mathQuill.MathField(mathQuillInput, {
     handlers: {
       edit: () => {
-        const enteredMath = mathField.latex();
-        latexOutput.textContent = enteredMath;
+        latexOutput.textContent = mathField.latex();
       }
     }
   });
@@ -58,7 +57,11 @@ window.addEventListener('load', () => {
       return;
     }
     chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
-      chrome.tabs.sendMessage(tabs[0].id, { message: 'insertImage', imageUrl: dataUrl }, response => {
+      chrome.tabs.sendMessage(tabs[0].id, {
+        message: 'insertImage',
+        imageUrl: dataUrl,
+        latex: mathField.latex()
+      }, response => {
         console.log(response);
       })
     });
