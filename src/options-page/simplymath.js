@@ -33,6 +33,7 @@ window.addEventListener('load', () => {
 
   // add listeners
   fontSizeInput.addEventListener('focusout', validateFontSizeListener);
+  maxDepthInput.addEventListener('focusout', validateMaxDepthListener);
   saveButton.addEventListener('click', saveButtonListener);
   loadDefaultsButton.addEventListener('click', loadDefaultsButtonListener);
 
@@ -109,16 +110,16 @@ function validateFontSizeListener(e) {
   if (e.target.value > 100) {
     e.target.value = 100;
   } else if (e.target.value < 8) {
-    e.target.value = 8;
+    e.target.value = 10;
   }
 }
 
 function validateMaxDepthListener(e) {
   if (e.target.value > 100) {
     e.target.value = 100;
-  } else if (e.target.value < 8) {
-    e.target.value = 8;
   } else if (e.target.value === "") {
     e.target.value = 10;
+  } else if (e.target.value < 8) {
+    e.target.value = 8;
   }
 }
