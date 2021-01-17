@@ -11,18 +11,41 @@ window.addEventListener('load', () => {
     }
   });
 
-  const insertButton = document.getElementById('insert-button');
-  insertButton.addEventListener('click', async () => {
+  const getImageAsDataUrl = async () => {
     try {
       const equationElement = mathQuillInput.querySelector('.mq-root-block');
       const dataUrl = await domtoimage.toPng(equationElement);
-      chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
-        chrome.tabs.sendMessage(tabs[0].id, { message: 'insertImage', imageUrl: dataUrl }, response => {
-          console.log(response);
-        })
-      });
+      return dataUrl;
     } catch (error) {
       console.error('An error occured while converting the equation to a PNG: ' + error);
+      return null;
     }
+  }
+
+  const insertButton = document.getElementById('insert-button');
+  insertButton.addEventListener('click', async () => {
+    const dataUrl = await getImageAsDataUrl();
+    if (dataUrl === null) {
+      return;
+    }
+    chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
+      chrome.tabs.sendMessage(tabs[0].id, { message: 'insertImage', imageUrl: dataUrl }, response => {
+        console.log(response);
+      })
+    });
   });
+
+  const saveButton = document.getElementById('save-button');
+  saveButton.addEventListener('click', async () => {
+    const dataUrl = await getImageAsDataUrl();
+    if (dataUrl === null) {
+      return;
+    }
+    const a = document.createElement('a');
+    a.href = dataUrl;
+    a.download = "equation.png";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  })
 });
