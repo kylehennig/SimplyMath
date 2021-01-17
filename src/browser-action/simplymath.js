@@ -18,6 +18,12 @@ window.addEventListener('load', () => {
         } catch (error) {
           console.error("An error occured while converting the equation to a PNG: " + e);
         }
+
+        chrome.tabs.query({ active: true, currentWindow: true }, tabs => {
+          chrome.tabs.sendMessage(tabs[0].id, { message: "Hello!" }, response => {
+            console.log(response);
+          })
+        });
       }
     }
   });
