@@ -2,10 +2,8 @@ async function writeImageToClipboard(url) {
   try {
     // How to copy image to clipboard
     // https://gist.github.com/dvreed77/c37759991b0723eebef3647015495253
-    //const image = new Image();
-    //image.src = url;
-    const image = document.createElement('p');
-    image.innerHTML = 'hilo';
+    const image = new Image();
+    image.src = url;
     document.body.appendChild(image);
     const r = document.createRange();
     r.setStartBefore(image);
@@ -30,15 +28,17 @@ function pasteImageFromClipboard() {
     return;
   }
   if (currentIframe !== null) {
-    let win = currentIframe.contentWindow;
-    let range = win.document.createRange();
+    const win = currentIframe.contentWindow;
+    const range = win.document.createRange();
     range.setStart(win.document.body, 0);
     range.setEnd(win.document.body, 0);
     win.document.body.focus();
     win.getSelection().addRange(range);
+    win.document.execCommand("paste");
+  } else {
+    currentEditableElement.focus();
+    document.execCommand("paste");
   }
-  currentEditableElement.focus();
-  document.execCommand("paste");
 }
 
 window.addEventListener('load', () => {
