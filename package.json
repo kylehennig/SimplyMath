@@ -9,7 +9,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/kylehennig/SimplyMath.git"
+    "url": "git+https://github.com/kylehennig/simplymath.git"
   },
   "keywords": [],
   "author": "Kyle Hennig",
@@ -19,9 +19,9 @@
   ],
   "license": "GPL-3.0",
   "bugs": {
-    "url": "https://github.com/kylehennig/SimplyMath/issues"
+    "url": "https://github.com/kylehennig/simplymath/issues"
   },
-  "homepage": "https://github.com/kylehennig/SimplyMath#readme",
+  "homepage": "https://github.com/kylehennig/simplymath#readme",
   "devDependencies": {
     "clean-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^7.0.0",
