@@ -1,3 +1,5 @@
+import './options.css';
+
 // define default config
 /* Adding a config option checklist:
 add html element

@@ -4,20 +4,20 @@
   "version": "0.0.1",
   "manifest_version": 2,
   "icons": {
-    "128": "icons/icon_128.png"
+    "128": "icon_128.png"
   },
   "background": {
     "scripts": [
-      "src/background-scripts/background.js"
+      "background.js"
     ],
     "persistent": false
   },
   "browser_action": {
     "default_icon": {
-      "128": "icons/icon_128.png"
+      "128": "icon_128.png"
     },
     "default_title": "SimplyMath",
-    "default_popup": "src/browser-action/simplymath.html"
+    "default_popup": "popup.html"
   },
   "commands": {
     "create-equation": {
@@ -35,11 +35,11 @@
         "https://*/*"
       ],
       "js": [
-        "src/content-scripts/simplymath.js"
+        "simplymath.js"
       ]
     }
   ],
-  "options_page": "src/options-page/options.html",
+  "options_page": "options.html",
   "permissions": [
     "storage",
     "activeTab",
