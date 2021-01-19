@@ -15,7 +15,7 @@ const defaultConfig = {
 
 window.addEventListener("load", () => {
   // set config
-  let config = {};
+  let config: any = {};
   chrome.storage.sync.get(["config"], (result) => {
     if (Object.keys(result).length === 0) {
       // first time user opened options
@@ -41,8 +41,8 @@ window.addEventListener("load", () => {
 
   const getImageAsDataUrl = async () => {
     try {
-      const equationElement = mathQuillInput.querySelector(".mq-root-block");
-      const cursorElement = equationElement.querySelector(".mq-cursor");
+      const equationElement = mathQuillInput.querySelector<HTMLElement>(".mq-root-block");
+      const cursorElement = equationElement.querySelector<HTMLElement>(".mq-cursor");
       if (cursorElement !== null) {
         cursorElement.style.visibility = "hidden";
       }

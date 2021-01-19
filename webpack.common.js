@@ -25,17 +25,17 @@ module.exports = {
       __dirname,
       "src",
       "background-scripts",
-      "background.js"
+      "background.ts"
     ),
     simplymath: path.resolve(
       __dirname,
       "src",
       "content-scripts",
-      "simplymath.js"
+      "simplymath.ts"
     ),
-    options: path.resolve(__dirname, "src", "options-page", "options.js"),
+    options: path.resolve(__dirname, "src", "options-page", "options.ts"),
     popup: {
-      import: path.resolve(__dirname, "src", "popup", "popup.js"),
+      import: path.resolve(__dirname, "src", "popup", "popup.ts"),
       dependOn: "vendor",
     },
     vendor: [
@@ -66,12 +66,9 @@ module.exports = {
         loader: "html-loader",
       },
       {
-        test: /\.js$/,
+        test: /\.(js|ts)$/,
         use: {
           loader: "babel-loader",
-          options: {
-            presets: ["@babel/preset-env"],
-          },
         },
         exclude: /node_modules/,
       },

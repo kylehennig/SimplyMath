@@ -27,9 +27,9 @@ window.addEventListener("load", () => {
     if (currentEditableElement === null) {
       return;
     }
+    const win = currentIframe.contentWindow;
     if (currentIframe !== null) {
       // Focus element where cursor is
-      const win = currentIframe.contentWindow;
       const range = win.document.createRange();
       range.setStart(win.document.body, 0);
       range.setEnd(win.document.body, 0);
@@ -42,7 +42,6 @@ window.addEventListener("load", () => {
         code: "Backspace",
         keyCode: 8,
       });
-      event.isTrusted = true;
       win.document.dispatchEvent(event);
       console.log("dispatched backspace keydown event");
     } else {
@@ -52,7 +51,6 @@ window.addEventListener("load", () => {
         code: "Backspace",
         keyCode: 8,
       });
-      event.isTrusted = true;
       win.document.dispatchEvent(event);
       console.log("dispatched backspace keydown event");
     }
@@ -96,7 +94,7 @@ window.addEventListener("load", () => {
 
   window.addEventListener("focusin", () => {
     const activeElement = document.activeElement;
-    if (activeElement.tagName === "IFRAME") {
+    if (activeElement instanceof HTMLIFrameElement) {
       const editableElement = activeElement.contentWindow.document.querySelector(
         'div[contenteditable="true"]'
       );
