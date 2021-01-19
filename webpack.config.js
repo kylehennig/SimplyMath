@@ -35,21 +35,24 @@ module.exports = {
           },
           'css-loader'
         ],
-        exclude: /node_modules/
+        // exclude: /node_modules/
       },
       {
         test: /\.html$/i,
         loader: 'html-loader',
-        exclude: /node_modules/
+        // exclude: /node_modules/
       },
       {
         test: new RegExp(`.(${fileExtensions.join('|')})$`),
         type: 'asset/resource',
-        exclude: /node_modules/
+        // exclude: /node_modules/
       },
       {
-        test: require.resolve('./vendor/mathquill-0.10.1/mathquill.min.js'),
-        use: ['exports-loader?exports=default|window.MathQuill']
+        test: require.resolve('./node_modules/mathquill/build/mathquill.js'),
+        use: [
+          'imports-loader?additionalCode=window.jQuery%20=%20require("jquery");',
+          'exports-loader?exports=default|window.MathQuill'
+        ]
       },
     ]
   },
@@ -62,9 +65,9 @@ module.exports = {
         { from: 'icons', to: '' }
       ],
     }),
-    new webpack.ProvidePlugin({
-      'window.jQuery': path.resolve(__dirname, 'vendor', 'jquery.min.js')
-    }),
+    // new webpack.ProvidePlugin({
+    //   'window.jQuery': path.resolve(__dirname, 'vendor', 'jquery.min.js')
+    // }),
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, 'src', 'popup', 'popup.html'),
       filename: 'popup.html',

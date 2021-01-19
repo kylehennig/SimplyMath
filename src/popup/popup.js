@@ -1,7 +1,7 @@
-import domtoimage from '../../vendor/dom-to-image.min.js';
-import MathQuill from '../../vendor/mathquill-0.10.1/mathquill.min.js';
+import domtoimage from 'dom-to-image';
+import MathQuill from '../../node_modules/mathquill/build/mathquill';
 import './popup.css';
-import '../../vendor/mathquill-0.10.1/mathquill.css';
+import '../../node_modules/mathquill/build/mathquill.css';
 
 const defaultConfig = {
   'fontSize': 4,
