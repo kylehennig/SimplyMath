@@ -1,4 +1,4 @@
-import './options.css';
+import "./options.css";
 
 // define default config
 /* Adding a config option checklist:
@@ -9,35 +9,40 @@ add it to create config from state
 add it to load config */
 
 const defaultConfig = {
-  'fontSize': 4,
-  'maxDepth': 10,
-  'spaceBehavesLikeTab': true,
-  'restrictMismatchedBrackets': true,
-  'sumStartsWithNEquals': true,
-  'supSubsRequireOperand': true,
-  'autoSubscriptNumerals': true,
-}
+  fontSize: 4,
+  maxDepth: 10,
+  spaceBehavesLikeTab: true,
+  restrictMismatchedBrackets: true,
+  sumStartsWithNEquals: true,
+  supSubsRequireOperand: true,
+  autoSubscriptNumerals: true,
+};
 
-window.addEventListener('load', () => {
+window.addEventListener("load", () => {
   // fetch elements
   const fontSizeInput = document.getElementById("fontSizeInput");
   const maxDepthInput = document.getElementById("maxDepthInput");
   const spaceBehavesLikeTab = document.getElementById("spaceBehaveLikeTab");
-  const restrictMismatchedBrackets = document.getElementById("restrictMismatchedBrackets");
+  const restrictMismatchedBrackets = document.getElementById(
+    "restrictMismatchedBrackets"
+  );
   const sumStartsWithNEquals = document.getElementById("sumStartWithNEquals");
-  const supSubsRequireOperand = document.getElementById("supSubsRequireOperand");
-  const autoSubscriptNumerals = document.getElementById("autoSubscriptNumerals");
-
+  const supSubsRequireOperand = document.getElementById(
+    "supSubsRequireOperand"
+  );
+  const autoSubscriptNumerals = document.getElementById(
+    "autoSubscriptNumerals"
+  );
 
   const saveButton = document.getElementById("saveButton");
   const loadDefaultsButton = document.getElementById("loadButton");
   const settingsSavedText = document.getElementById("settingsSavedText");
 
   // add listeners
-  fontSizeInput.addEventListener('focusout', validateFontSizeListener);
-  maxDepthInput.addEventListener('focusout', validateMaxDepthListener);
-  saveButton.addEventListener('click', saveButtonListener);
-  loadDefaultsButton.addEventListener('click', loadDefaultsButtonListener);
+  fontSizeInput.addEventListener("focusout", validateFontSizeListener);
+  maxDepthInput.addEventListener("focusout", validateMaxDepthListener);
+  saveButton.addEventListener("click", saveButtonListener);
+  loadDefaultsButton.addEventListener("click", loadDefaultsButtonListener);
 
   // hide settings saved text
   settingsSavedText.style.display = "none";
@@ -57,12 +62,15 @@ function saveButtonListener() {
 // save button listener
 function saveConfig() {
   const config = createConfigFromState();
-  chrome.storage.sync.set({
-    'config': config
-  }, () => {
-    console.log("Config Saved: ");
-    console.log(config);
-  });
+  chrome.storage.sync.set(
+    {
+      config: config,
+    },
+    () => {
+      console.log("Config Saved: ");
+      console.log(config);
+    }
+  );
 }
 
 // load defualts listener
@@ -85,13 +93,15 @@ function createConfigFromState() {
 
 // fetches config from store and loads them
 function fetchOptions() {
-  chrome.storage.sync.get(['config'], (result) => {
+  chrome.storage.sync.get(["config"], (result) => {
     console.log(Object.keys(result).length);
-    if (Object.keys(result).length === 0) { // first time user opened options
-      console.log("No Saved config found! Loading default")
+    if (Object.keys(result).length === 0) {
+      // first time user opened options
+      console.log("No Saved config found! Loading default");
       loadConfig(defaultConfig);
       saveConfig();
-    } else { // load saved options
+    } else {
+      // load saved options
       console.log("Loading fetched config!");
       loadConfig(result.config);
     }
