@@ -20,7 +20,7 @@ module.exports = {
       import: path.resolve(__dirname, 'src', 'popup', 'popup.js'),
       dependOn: 'vendor'
     },
-    vendor: ['./node_modules/mathquill/build/mathquill.js', './node_modules/mathquill/build/mathquill.css', 'dom-to-image']
+    vendor: ['mathquill/build/mathquill', 'mathquill/build/mathquill.css', 'dom-to-image']
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -49,7 +49,7 @@ module.exports = {
         type: 'asset/resource'
       },
       {
-        test: require.resolve('./node_modules/mathquill/build/mathquill.js'),
+        test: require.resolve('mathquill/build/mathquill'),
         use: [
           'imports-loader?additionalCode=window.jQuery%20=%20require("jquery");',
           'exports-loader?exports=default|window.MathQuill'
