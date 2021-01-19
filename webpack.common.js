@@ -7,11 +7,9 @@ const webpack = require('webpack');
 const WriteFilePlugin = require('write-file-webpack-plugin');
 
 // Supported file extensions for resources.
-const fileExtensions = ['jpg', 'jpeg', 'png', 'gif', 'eot', 'otf', 'svg', 'ttf', 'woff', 'woff2'];
+const assetFiles = ['jpg', 'jpeg', 'png', 'gif', 'eot', 'otf', 'svg', 'ttf', 'woff', 'woff2'];
 
 module.exports = {
-  mode: 'production',
-  devtool: 'source-map',
   entry: {
     background: path.resolve(__dirname, 'src', 'background-scripts', 'background.js'),
     simplymath: path.resolve(__dirname, 'src', 'content-scripts', 'simplymath.js'),
@@ -23,7 +21,6 @@ module.exports = {
     vendor: ['mathquill/build/mathquill', 'mathquill/build/mathquill.css', 'dom-to-image']
   },
   output: {
-    path: path.resolve(__dirname, 'dist'),
     filename: '[name].js'
   },
   module: {
@@ -45,7 +42,7 @@ module.exports = {
         loader: 'html-loader'
       },
       {
-        test: new RegExp(`.(${fileExtensions.join('|')})$`),
+        test: new RegExp(`.(${assetFiles.join('|')})$`),
         type: 'asset/resource'
       },
       {
@@ -75,9 +72,6 @@ module.exports = {
       template: path.resolve(__dirname, 'src', 'options-page', 'options.html'),
       filename: 'options.html',
       chunks: ['options']
-    }),
-    new webpack.SourceMapDevToolPlugin({
-      include: ['popup.js', 'background.js'],
     }),
     new MiniCssExtractPlugin({
       filename: '[name].css'
