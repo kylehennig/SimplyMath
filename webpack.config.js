@@ -16,7 +16,11 @@ module.exports = {
     background: path.resolve(__dirname, 'src', 'background-scripts', 'background.js'),
     simplymath: path.resolve(__dirname, 'src', 'content-scripts', 'simplymath.js'),
     options: path.resolve(__dirname, 'src', 'options-page', 'options.js'),
-    popup: path.resolve(__dirname, 'src', 'popup', 'popup.js')
+    popup: {
+      import: path.resolve(__dirname, 'src', 'popup', 'popup.js'),
+      dependOn: 'vendor'
+    },
+    vendor: ['./node_modules/mathquill/build/mathquill.js', './node_modules/mathquill/build/mathquill.css', 'dom-to-image']
   },
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -34,18 +38,15 @@ module.exports = {
             }
           },
           'css-loader'
-        ],
-        // exclude: /node_modules/
+        ]
       },
       {
         test: /\.html$/i,
-        loader: 'html-loader',
-        // exclude: /node_modules/
+        loader: 'html-loader'
       },
       {
         test: new RegExp(`.(${fileExtensions.join('|')})$`),
-        type: 'asset/resource',
-        // exclude: /node_modules/
+        type: 'asset/resource'
       },
       {
         test: require.resolve('./node_modules/mathquill/build/mathquill.js'),
@@ -53,7 +54,7 @@ module.exports = {
           'imports-loader?additionalCode=window.jQuery%20=%20require("jquery");',
           'exports-loader?exports=default|window.MathQuill'
         ]
-      },
+      }
     ]
   },
   plugins: [
@@ -65,13 +66,10 @@ module.exports = {
         { from: 'icons', to: '' }
       ],
     }),
-    // new webpack.ProvidePlugin({
-    //   'window.jQuery': path.resolve(__dirname, 'vendor', 'jquery.min.js')
-    // }),
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, 'src', 'popup', 'popup.html'),
       filename: 'popup.html',
-      chunks: ['popup']
+      chunks: ['popup', 'vendor']
     }),
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, 'src', 'options-page', 'options.html'),
