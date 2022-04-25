@@ -15,14 +15,14 @@
   "keywords": [],
   "author": "Kyle Hennig",
   "contributors": [
-    "Ryan Shukla",
+    "May Shukla",
     "Konrad Staniszewski"
   ],
   "license": "GPL-3.0",
   "bugs": {
     "url": "https://github.com/kylehennig/simplymath/issues"
   },
-  "homepage": "https://github.com/kylehennig/simplymath#readme",
+  "homepage": "https://github.com/kylehennig/simplymath",
   "browserslist": [
     "defaults",
     "not IE 11"
